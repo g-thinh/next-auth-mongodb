@@ -15,7 +15,7 @@ export default function App({
     <SessionProvider session={session}>
       <div className={`flex flex-col min-h-screen ${inter.className}`}>
         <Header />
-        <main className="flex-1 p-4">
+        <main className="flex-1 p-4 prose">
           <Component {...pageProps} />
         </main>
         <Footer />
