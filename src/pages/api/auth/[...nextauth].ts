@@ -3,7 +3,7 @@ import NextAuth, { AuthOptions } from "next-auth";
 import Email from "next-auth/providers/email";
 import clientPromise from "src/lib/mongoClient";
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     Email({
       server: {
@@ -18,10 +18,24 @@ const authOptions: AuthOptions = {
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
-  session: {
-    strategy: "jwt",
+  callbacks: {
+    async session({ session, user }) {
+      // match session and database values and avoir serialization errors from undefined
+      if (session.user) {
+        session.user.email = user.email;
+        session.user.name = user.name ?? null;
+        session.user.image = user.image ?? null;
+      }
+
+      return session;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    newUser: "/new-user",
+    signIn: "/login",
+    verifyRequest: "/verify",
+  },
 };
 
 export default NextAuth(authOptions);

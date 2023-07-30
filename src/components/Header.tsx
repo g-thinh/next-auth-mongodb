@@ -12,12 +12,19 @@ export const Header: React.FC = () => {
         {session ? <p>Hello, {session.user?.email}</p> : null}
         <ul className="flex gap-3">
           {session ? (
-            <li>
-              <button onClick={() => signOut()}>Sign out</button>
-            </li>
+            <>
+              <li>
+                <button onClick={() => signOut({ callbackUrl: "/" })}>
+                  Sign out
+                </button>
+              </li>
+              <li>
+                <Link href="/profile">My Profile</Link>
+              </li>
+            </>
           ) : (
             <li>
-              <button onClick={() => signIn()}>Sign in</button>
+              <Link href="/login">Login</Link>
             </li>
           )}
         </ul>
