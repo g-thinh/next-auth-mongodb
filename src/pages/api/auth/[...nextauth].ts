@@ -1,4 +1,4 @@
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import NextAuth, { AuthOptions } from "next-auth";
 import Email from "next-auth/providers/email";
 import clientPromise from "src/lib/mongoClient";
