@@ -36,6 +36,14 @@ export const LoginPage: React.FC = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      await signIn("google", { callbackUrl: "/profile" });
+    } catch (e) {
+      setError(e as string);
+    }
+  };
+
   return (
     <section className="prose">
       <h2>Login Page</h2>
@@ -54,12 +62,19 @@ export const LoginPage: React.FC = () => {
           />
         </div>
         {error && <p>{error}</p>}
-        <div>
+        <div className="flex flex-col w-full gap-3">
           <button
             type="submit"
-            className="px-4 py-1 text-white rounded-md bg-slate-700"
+            className="px-4 py-1 text-white rounded-md w-fit bg-slate-700"
           >
             Login
+          </button>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="px-4 py-1 text-white bg-orange-400 rounded-md w-fit"
+          >
+            Sign in with Google
           </button>
         </div>
       </form>

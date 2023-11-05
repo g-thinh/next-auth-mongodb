@@ -1,5 +1,6 @@
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import NextAuth, { AuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 import Email from "next-auth/providers/email";
 import clientPromise from "src/lib/mongoClient";
 
@@ -15,6 +16,10 @@ export const authOptions: AuthOptions = {
         },
       },
       from: process.env.SMTP_FROM,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
